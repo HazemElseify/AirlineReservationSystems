@@ -5,6 +5,7 @@
 package database;
 import java.sql.*;
 import java.util.ArrayList;
+import logic.AirPlane;
 /**
  *
  * @author Hazem Elseify
@@ -22,12 +23,46 @@ public class database {
    public static ArrayList<String>getSeatslist(ArrayList<String> arrayList) throws SQLException{
            Connection con =connect();
            PreparedStatement statement=con.prepareStatement("SELECT seatno FROM seats WHERE planeid = ?");
-           statement.setString(0, planeid);
+           statement.setString(1, planeid);
            ResultSet resultSet=statement.executeQuery();
            while (resultSet.next()) {
                arrayList.add(resultSet.getString("seatno"));
           }
            return arrayList;
       }
-   
+   public static void PushPlane(AirPlane p1) throws SQLException{
+       Connection con=connect();
+       PreparedStatement statement=con.prepareStatement("insert into airplane (id,dest,date,seatsno)"
+        + " values (?, ?, ?, ?)");
+       statement.setString(1, p1.getPlaneId());
+       statement.setString(2,p1.getPlaneDistination());
+       statement.setString(3,p1.getPlaneDate());
+       statement.setInt(4,p1.getPlaneSeatsNumber());
+       statement.execute();
+   }
+   public static boolean GetPlaneId(String PlaneId) throws SQLException{
+       Connection con =connect();
+           PreparedStatement statement=con.prepareStatement("SELECT * FROM airplane WHERE id = ?");
+           statement.setString(1, PlaneId);
+           ResultSet resultSet=statement.executeQuery();
+           return resultSet.next();
+   }
+   public static void PushPlaneSeat(String PlaneId,String SeatNo) throws SQLException{
+       Connection con=connect();
+       PreparedStatement statement=con.prepareStatement("insert into seats (planeid,seatno,csusername)"
+        + " values (?, ?, ?)");
+       statement.setString(1, PlaneId);
+       statement.setString(2,SeatNo);
+       statement.setString(3,"0");
+       statement.execute();
+   }
+   public static void DeleteAirplane(String PlaneId) throws SQLException{
+       Connection con=connect();
+       PreparedStatement statement=con.prepareStatement("delete from seats where planeid = ?");
+       statement.setString(1,PlaneId);
+       statement.execute();
+       statement=con.prepareStatement("delete from airplane where id = ?");
+       statement.setString(1,PlaneId);
+       statement.execute();
+   }
 }
