@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class AirlineReservationSystems {
     public static void main(String[] args) throws SQLException {
-        AdminHome a=new AdminHome();
-        a.setVisible(true);  
+        /*AdminHome a=new AdminHome();
+        a.setVisible(true);*/  
 }
 }

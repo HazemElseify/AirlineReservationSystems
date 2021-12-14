@@ -40,7 +40,7 @@ public class customerreserve extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(60, 63, 65));
 
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/airplane.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/image/airplane.png"))); // NOI18N
 
         jSeparator1.setBackground(new java.awt.Color(102, 102, 102));
 

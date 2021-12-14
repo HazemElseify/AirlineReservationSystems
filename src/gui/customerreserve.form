@@ -100,7 +100,7 @@
               <Color blue="66" green="66" red="66" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/gui/airplane.png"/>
+              <Image iconType="3" name="/gui/image/airplane.png"/>
             </Property>
           </Properties>
         </Component>
