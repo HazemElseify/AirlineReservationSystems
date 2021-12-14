@@ -4,17 +4,29 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+            <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/airplane.jpg</file>
+=======
+<<<<<<< HEAD
+>>>>>>> a2fae79d1abcbe50dc70901f8d1ebc4ccc6f8fd8
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/airlinereservationsystems/AirlineReservationSystems.java</file>
+            <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/AdminHome.java</file>
+            <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/customerreserve.java</file>
+            <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/airplane.png</file>
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/logic/AirPlane.java</file>
+            <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/DeleteAirplane.java</file>
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/database/database.java</file>
+            <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/AddPlane.java</file>
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/Home.java</file>
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/logic/Admin.java</file>
+<<<<<<< HEAD
+=======
 =======
             <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/database/readme.txt</file>
             <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/gui/customerreserve.java</file>
             <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/database/database.java</file>
             <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/gui/Home.java</file>
 >>>>>>> f4691b4eda7596a02bbd0ee533c39876c747d577
+>>>>>>> a2fae79d1abcbe50dc70901f8d1ebc4ccc6f8fd8
         </group>
     </open-files>
 </project-private>

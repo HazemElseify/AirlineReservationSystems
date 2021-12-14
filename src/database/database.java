@@ -13,7 +13,7 @@ import logic.customer;
  */
 public class database {
    public static String username="root";
-   public static String password="";
+   public static String password="1234";
    public static String url="jdbc:mysql://localhost:3306/ars";
    public static String planeid;
    
@@ -81,7 +81,7 @@ public class database {
             Statement stmt= connect.createStatement();
             ResultSet rs =stmt.executeQuery(Sql);
             while (rs.next()) {
-                s=new AirPlane( rs.getString("id") , rs.getString("dest") , rs.getString("date") , rs.getString("seatno"));
+                s=new AirPlane( rs.getString("id") , rs.getString("dest") , rs.getString("date") , rs.getInt("seatno"));
                 planeid.add(s); 
              }
             return planeid;
