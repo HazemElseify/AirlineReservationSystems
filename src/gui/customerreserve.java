@@ -9,12 +9,16 @@ package gui;
  * @author Hazem Elseify
  */
 public class customerreserve extends javax.swing.JFrame {
-
+    static String Plane_id;
+    static String Csuser_name;
     /**
      * Creates new form customerreserve
      */
-    public customerreserve() {
+    public customerreserve(String id, String user_name) {
         initComponents();
+        Plane_id =id;
+        Csuser_name=user_name;
+       
     }
 
     /**
@@ -102,7 +106,6 @@ public class customerreserve extends javax.swing.JFrame {
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setSelectionBackground(new java.awt.Color(51, 51, 51));
         jTable1.setSelectionForeground(new java.awt.Color(51, 204, 255));
-        jTable1.setShowGrid(true);
         jTable1.getTableHeader().setResizingAllowed(false);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
@@ -210,7 +213,7 @@ public class customerreserve extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new customerreserve().setVisible(true);
+                new customerreserve(Plane_id,Csuser_name).setVisible(true);
             }
         });
     }

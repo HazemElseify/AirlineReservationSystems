@@ -205,7 +205,7 @@ public class Main_Customer extends javax.swing.JFrame {
 
     private void FreqLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FreqLabel2MouseClicked
         this.setVisible(false);
-        Home a=new Home();
+        New_Ticket a=new New_Ticket(Customer_username);
         a.show();        // TODO add your handling code here:
     }//GEN-LAST:event_FreqLabel2MouseClicked
 

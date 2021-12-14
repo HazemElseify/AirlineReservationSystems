@@ -71,5 +71,8 @@ public class customer {
     public void setPassword(String Password) {
         this.Password = Password;
     }
+
+
+
     
 }

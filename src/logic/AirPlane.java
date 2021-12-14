@@ -30,6 +30,11 @@ public class AirPlane {
         this.PlaneDate = PlaneDate;
         this.SeatNum = SeatNum;
     }
+
+    public AirPlane(String PlaneIdNo, String PlaneDate) {
+        this.PlaneIdNo = PlaneIdNo;
+        this.PlaneDate = PlaneDate;
+    }
     
     
     public String getPlaneId() {

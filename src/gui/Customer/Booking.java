@@ -68,6 +68,12 @@ public class Booking extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("Your Tickets");
 
+        jScrollPane1.setBackground(new java.awt.Color(51, 51, 51));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
+
+        table1.setBackground(new java.awt.Color(51, 51, 51));
+        table1.setFont(new java.awt.Font("Sylfaen", 0, 18)); // NOI18N
+        table1.setForeground(new java.awt.Color(255, 255, 255));
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -76,6 +82,8 @@ public class Booking extends javax.swing.JFrame {
                 "Plane ID", "Destination", "Date", "Seat Num"
             }
         ));
+        table1.setEnabled(false);
+        table1.setRowHeight(25);
         jScrollPane1.setViewportView(table1);
 
         jLabel5.setFont(new java.awt.Font("Tempus Sans ITC", 0, 48)); // NOI18N

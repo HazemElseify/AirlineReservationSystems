@@ -88,6 +88,23 @@ public class database {
         }
         else return null;
     }   
+    public static ArrayList<AirPlane> date_plane(String a) throws ClassNotFoundException, SQLException{
+        Connection connect; 
+        connect = connect();
+        ArrayList<AirPlane> planeid = new ArrayList<AirPlane>(); 
+        AirPlane s= null;
+        if(connect!=null){  
+            String Sql="SELECT * FROM airplane WHERE dest = '"+a +"' " ;
+            Statement stmt= connect.createStatement();
+            ResultSet rs =stmt.executeQuery(Sql);
+            while (rs.next()) {
+                s=new AirPlane( rs.getString("id") , rs.getString("date") );
+                planeid.add(s); 
+             }
+            return planeid;
+        }
+        else return null;
+    }  
    
     
    
