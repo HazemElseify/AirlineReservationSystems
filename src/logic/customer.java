@@ -8,11 +8,6 @@ package logic;
 import database.database;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-/**
- *
- * @author Ahmed Abdallah
- */
 public class customer {
     private String usernmae;
     private String Password;

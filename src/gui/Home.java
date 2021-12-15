@@ -8,6 +8,7 @@ package gui;
  *
  * @author OmarHA
  */
+import gui.Customer.register;
 public class Home extends javax.swing.JFrame {
 
     /**
@@ -194,15 +195,21 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void FreqLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FreqLabelMouseClicked
-       
+       register al=new register();
+    this.setVisible(false);
+    al.setVisible(true);
     }//GEN-LAST:event_FreqLabelMouseClicked
 
     private void FreqLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FreqLabel1MouseClicked
-        // TODO add your handling code here:
+    AdminLOgin al=new AdminLOgin();
+    this.setVisible(false);
+    al.setVisible(true);
     }//GEN-LAST:event_FreqLabel1MouseClicked
 
     private void FreqLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FreqLabel2MouseClicked
-        // TODO add your handling code here:
+       CustomerLogin al=new CustomerLogin();
+    this.setVisible(false);
+    al.setVisible(true);
     }//GEN-LAST:event_FreqLabel2MouseClicked
 
     /**
