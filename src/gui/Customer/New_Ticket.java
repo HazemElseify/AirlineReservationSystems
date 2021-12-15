@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import logic.AirPlane;
 import database.database;
 import static gui.Customer.Booking.Customer_username;
-import gui.customerreserve;
+import gui.Customer.customerreserve;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -314,7 +314,12 @@ public class New_Ticket extends javax.swing.JFrame {
            plan_id =  (String) model.getValueAt(i, 0);
            plan_date =  (String) model.getValueAt(i, 1);
            this.setVisible(false);
-           customerreserve a=new customerreserve(plan_id,Csuser_name);
+           customerreserve a = null;
+            try {
+                a = new customerreserve(plan_id,plan_date);
+            } catch (SQLException ex) {
+                Logger.getLogger(New_Ticket.class.getName()).log(Level.SEVERE, null, ex);
+            }
            a.show();                 
         }
         else {

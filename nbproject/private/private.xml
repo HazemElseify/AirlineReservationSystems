@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/Customer/Main_Customer.java</file>
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/CustomerLogin.java</file>
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/airlinereservationsystems/AirlineReservationSystems.java</file>
@@ -14,6 +15,16 @@
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/Home.java</file>
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/gui/Customer/Booking.java</file>
             <file>file:/D:/Parralel%20project/AirlineReservationSystems/src/logic/Admin.java</file>
+=======
+            <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/gui/Customer/customerreserve.java</file>
+            <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/gui/Customer/New_Ticket.java</file>
+            <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/database/database.java</file>
+            <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/gui/Admin/AddPlane.java</file>
+            <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/logic/Admin.java</file>
+            <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/logic/AirPlane.java</file>
+            <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/gui/Customer/Booking.java</file>
+            <file>file:/C:/Users/Hazem%20Elseify/Documents/NetBeansProjects/AirlineReservationSystems/AirlineReservationSystems/src/airlinereservationsystems/AirlineReservationSystems.java</file>
+>>>>>>> c9cfe5cf39ac4eb135dcf4ebe2bbd551cacd08e1
         </group>
     </open-files>
 </project-private>

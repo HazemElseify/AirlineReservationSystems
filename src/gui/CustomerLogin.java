@@ -5,6 +5,7 @@
 package gui;
 
 import gui.Admin.AdminHome;
+import gui.Customer.Main_Customer;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -216,7 +217,7 @@ public class CustomerLogin extends javax.swing.JFrame {
         try {
             if(a.login(a)){
                 JOptionPane.showMessageDialog(null,"Login successfully","Done",JOptionPane.PLAIN_MESSAGE);
-                AdminHome b=new AdminHome();
+                Main_Customer b=new Main_Customer(a.getUsernmae());
                 this.setVisible(false);
                 b.setVisible(true);
             }
