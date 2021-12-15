@@ -4,7 +4,12 @@
  */
 package gui.Customer;
 
-import java.util.Vector;
+import database.database;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,17 +19,17 @@ import javax.swing.table.DefaultTableModel;
 public class customerreserve extends javax.swing.JFrame {
 
   public static String planeid,userName;
-    public customerreserve(String planeid,String userName) {
+    public customerreserve(String planeid,String userName) throws SQLException {
         this.planeid=planeid;
         this.userName=userName;
         initComponents();
+        ArrayList<String> planeseats;
+        planeseats=database.getSeatslist(planeid);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-       boolean flag=true;
-       Vector row = new Vector();
-       row.add("f-12");
-       row.add(new javax.swing.JCheckBox());
-       model.addRow(row);
-
+        for(int i=0;i<planeseats.size();i++){
+           model.insertRow(i, new Object[]{planeseats.get(i)});
+        }
+        
     }
     
     /**
@@ -61,11 +66,11 @@ public class customerreserve extends javax.swing.JFrame {
 
             },
             new String [] {
-                "SEATNUBMERS", "SELECTED "
+                "SEATNUBMERS"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -159,7 +164,29 @@ public class customerreserve extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+  DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+  int[] selectedidx;
+  selectedidx=jTable1.getSelectedRows();
+  ArrayList resultOfselection=new ArrayList();
+  for(int i=0;i<selectedidx.length;i++){
+      try {
+          database.UpdateUserSeats(userName,model.getValueAt(selectedidx[i],0));
+          
+//   resultOfselection.add(model.getValueAt(selectedidx[i],0));
+      } catch (SQLException ex) {
+          Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
+      }
+  }
+      try {
+          Booking bk=new Booking(userName);
+          bk.show();
+          this.setVisible(false);
+      } catch (ClassNotFoundException ex) {
+          Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (SQLException ex) {
+          Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
+      }
+  
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -192,7 +219,11 @@ public class customerreserve extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new customerreserve(planeid,userName).setVisible(true);
+                try {
+                    new customerreserve(planeid,userName).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

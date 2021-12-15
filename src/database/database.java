@@ -20,16 +20,26 @@ public class database {
         Connection con=DriverManager.getConnection(url,username,password);
        return con;
    }
-   public static ArrayList<String>getSeatslist(ArrayList<String> arrayList,String planeid) throws SQLException{
+   public static ArrayList<String>getSeatslist(String planeid) throws SQLException{
+       ArrayList<String> arrayList=new ArrayList<>();
            Connection con =connect();
-           PreparedStatement statement=con.prepareStatement("SELECT seatno FROM seats WHERE planeid = ?");
+           PreparedStatement statement=con.prepareStatement("SELECT seatno FROM seats WHERE planeid = ? and csusername= ? ");
            statement.setString(1, planeid);
+           statement.setString(2, "0");
            ResultSet resultSet=statement.executeQuery();
            while (resultSet.next()) {
                arrayList.add(resultSet.getString("seatno"));
           }
            return arrayList;
       }
+   public static void UpdateUserSeats(String username,Object seatsnumber ) throws SQLException{
+       Connection conn=connect();
+      String query = "update seats set seatno = ? where csusername = ?";
+      PreparedStatement preparedStmt = conn.prepareStatement(query);
+      preparedStmt.setObject(1, seatsnumber);
+      preparedStmt.setString(2, username);
+      preparedStmt.executeUpdate();
+   }
    public static void PushPlane(AirPlane p1) throws SQLException{
        Connection con=connect();
        PreparedStatement statement=con.prepareStatement("insert into airplane (id,dest,date,seatsno)"
