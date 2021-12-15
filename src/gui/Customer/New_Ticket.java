@@ -308,14 +308,13 @@ public class New_Ticket extends javax.swing.JFrame {
 
     private void FreqLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FreqLabel14MouseClicked
         int i = jTable1.getSelectedRow();
-        j
         String plan_id;
         String plan_date;
         if(i>=0){
            plan_id =  (String) model.getValueAt(i, 0);
            plan_date =  (String) model.getValueAt(i, 1);
            this.setVisible(false);
-           customerreserve a=new customerreserve();
+           customerreserve a=new customerreserve(plan_id,plan_date);
            a.show();                 
         }
         else {
@@ -363,64 +362,20 @@ public class New_Ticket extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel FreqLabel;
-    private javax.swing.JLabel FreqLabel1;
-    private javax.swing.JLabel FreqLabel10;
-    private javax.swing.JLabel FreqLabel11;
     private javax.swing.JLabel FreqLabel12;
     private javax.swing.JLabel FreqLabel13;
     private javax.swing.JLabel FreqLabel14;
-    private javax.swing.JLabel FreqLabel2;
-    private javax.swing.JLabel FreqLabel3;
-    private javax.swing.JLabel FreqLabel4;
-    private javax.swing.JLabel FreqLabel5;
-    private javax.swing.JLabel FreqLabel6;
-    private javax.swing.JLabel FreqLabel7;
-    private javax.swing.JLabel FreqLabel8;
-    private javax.swing.JLabel FreqLabel9;
     private javax.swing.JTextField OK;
-    private javax.swing.JLabel Title2;
-    private javax.swing.JLabel Title3;
-    private javax.swing.JLabel Title4;
-    private javax.swing.JLabel Title5;
     private javax.swing.JLabel Title6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator15;
     private javax.swing.JSeparator jSeparator16;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }
