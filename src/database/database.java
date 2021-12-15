@@ -104,12 +104,27 @@ public class database {
             return planeid;
         }
         else return null;
-    }  
-   
-    
-   
+    }
+    public static boolean GetAdmin(String UserName,String Password) throws SQLException{
+        Connection con =connect();
+           PreparedStatement statement=con.prepareStatement("SELECT * FROM admin WHERE username = ? and password = ?");
+           statement.setString(1, UserName);
+           statement.setString(2, Password);
+           ResultSet resultSet=statement.executeQuery();
+           return resultSet.next();
+    }
+    public static boolean GetCustomer(String UserName,String Password) throws SQLException{
+        Connection con =connect();
+           PreparedStatement statement=con.prepareStatement("SELECT * FROM customer WHERE username = ? and password = ?");
+           statement.setString(1, UserName);
+           statement.setString(2, Password);
+           ResultSet resultSet=statement.executeQuery();
+           return resultSet.next();
+    }
    
    
    ////////////////////////////////////////////Abdallah/////////////////////////////////////////////////
+
+   
    
 }

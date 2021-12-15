@@ -71,8 +71,12 @@ public class customer {
     public void setPassword(String Password) {
         this.Password = Password;
     }
+    public boolean login(customer c) throws SQLException{
+        return database.GetCustomer(c.getUsernmae(),c.getPassword());
+    }
 
-
-
-    
+    public customer(String usernmae, String Password) {
+        this.usernmae = usernmae;
+        this.Password = Password;
+    }
 }

@@ -14,6 +14,14 @@ import java.sql.SQLException;
 public class Admin {
     private String usernmae;
     private String Password;
+
+    public Admin() {
+    }
+    public Admin(String usernmae, String Password) {
+        this.usernmae = usernmae;
+        this.Password = Password;
+    }
+    
     public String getUsernmae() {
         return usernmae;
     }
@@ -57,5 +65,8 @@ public class Admin {
     }
     public void RemovePlane(String PlaneId) throws SQLException{
         database.DeleteAirplane(PlaneId);
+    }
+    public boolean login(Admin a) throws SQLException{
+        return database.GetAdmin(a.getUsernmae(),a.getPassword());
     }
 }
