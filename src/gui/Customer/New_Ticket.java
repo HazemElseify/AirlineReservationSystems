@@ -125,7 +125,7 @@ public class New_Ticket extends javax.swing.JFrame {
         FreqLabel14.setFont(new java.awt.Font("Tempus Sans ITC", 1, 36)); // NOI18N
         FreqLabel14.setForeground(new java.awt.Color(255, 255, 255));
         FreqLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/image/confirm.png"))); // NOI18N
-        FreqLabel14.setText("Comfirm");
+        FreqLabel14.setText("Confirm");
         FreqLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         FreqLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -314,9 +314,9 @@ public class New_Ticket extends javax.swing.JFrame {
            plan_id =  (String) model.getValueAt(i, 0);
            plan_date =  (String) model.getValueAt(i, 1);
            this.setVisible(false);
-           customerreserve a;
+           customerreserve a = null;
             try {
-                a = new customerreserve(plan_id,plan_date);
+            a = new customerreserve(plan_id,Csuser_name);
             } catch (SQLException ex) {
                 Logger.getLogger(New_Ticket.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -170,7 +170,7 @@ public class customerreserve extends javax.swing.JFrame {
   ArrayList resultOfselection=new ArrayList();
   for(int i=0;i<selectedidx.length;i++){
       try {
-          database.UpdateUserSeats(userName,model.getValueAt(selectedidx[i],0));
+          database.UpdateUserSeats(userName, String.valueOf(model.getValueAt(selectedidx[i],0)));
           
 //   resultOfselection.add(model.getValueAt(selectedidx[i],0));
       } catch (SQLException ex) {

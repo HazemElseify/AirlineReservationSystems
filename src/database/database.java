@@ -32,18 +32,18 @@ public class database {
           }
            return arrayList;
       }
-   public static void UpdateUserSeats(String username,Object seatsnumber ) throws SQLException{
+   public static void UpdateUserSeats(String username,String seatsnumber ) throws SQLException{
        Connection conn=connect();
-      String query = "update seats set seatno = ? where csusername = ?";
+      String query = "update seats set csusername=? where seatno=?";
       PreparedStatement preparedStmt = conn.prepareStatement(query);
-      preparedStmt.setObject(1, seatsnumber);
-      preparedStmt.setString(2, username);
+      preparedStmt.setString(1, username);
+      preparedStmt.setString(2, seatsnumber);
       preparedStmt.executeUpdate();
    }
    public static void registerusername(customer cs)throws SQLException{
        Connection con=connect();
          PreparedStatement statement=con.prepareStatement("insert into customer (name,username,password,email,age)"
-        + " values (?, ?, ?, ?)");
+        + " values (?, ?, ?, ?, ?)");
          statement.setString(1, cs.getName());
          statement.setString(2, cs.getUsernmae());
          statement.setString(3, cs.getPassword());
@@ -65,6 +65,13 @@ public class database {
        Connection con =connect();
            PreparedStatement statement=con.prepareStatement("SELECT * FROM airplane WHERE id = ?");
            statement.setString(1, PlaneId);
+           ResultSet resultSet=statement.executeQuery();
+           return resultSet.next();
+   }
+     public static boolean getusername(String username) throws SQLException{
+       Connection con =connect();
+           PreparedStatement statement=con.prepareStatement("SELECT * FROM customer WHERE username = ?");
+           statement.setString(1, username);
            ResultSet resultSet=statement.executeQuery();
            return resultSet.next();
    }
@@ -101,7 +108,7 @@ public class database {
             Statement stmt= connect.createStatement();
             ResultSet rs =stmt.executeQuery(Sql);
             while (rs.next()) {
-                s=new AirPlane( rs.getString("id") , rs.getString("dest") , rs.getString("date") , rs.getInt("seatno"));
+                s=new AirPlane( rs.getString("id") , rs.getString("dest") , rs.getString("date") , rs.getString("seatno"));
                 planeid.add(s); 
              }
             return planeid;
@@ -124,12 +131,27 @@ public class database {
             return planeid;
         }
         else return null;
-    }  
-   
-    
-   
+    }
+    public static boolean GetAdmin(String UserName,String Password) throws SQLException{
+        Connection con =connect();
+           PreparedStatement statement=con.prepareStatement("SELECT * FROM admin WHERE username = ? and password = ?");
+           statement.setString(1, UserName);
+           statement.setString(2, Password);
+           ResultSet resultSet=statement.executeQuery();
+           return resultSet.next();
+    }
+    public static boolean GetCustomer(String UserName,String Password) throws SQLException{
+        Connection con =connect();
+           PreparedStatement statement=con.prepareStatement("SELECT * FROM customer WHERE username = ? and password = ?");
+           statement.setString(1, UserName);
+           statement.setString(2, Password);
+           ResultSet resultSet=statement.executeQuery();
+           return resultSet.next();
+    }
    
    
    ////////////////////////////////////////////Abdallah/////////////////////////////////////////////////
+
+   
    
 }

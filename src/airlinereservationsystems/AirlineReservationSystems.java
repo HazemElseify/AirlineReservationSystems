@@ -13,5 +13,9 @@ public class AirlineReservationSystems {
     public static void main(String[] args) throws SQLException {
         /*AdminHome a=new AdminHome();
         a.setVisible(true);*/  
+      /*  ArrayList al=new ArrayList();
+        customer s=new customer();
+        s.setUsernmae("hazemelseify");
+        al=database.planeid_Customer(s);*/
 }
 }
