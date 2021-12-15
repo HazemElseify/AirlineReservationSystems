@@ -40,6 +40,17 @@ public class database {
       preparedStmt.setString(2, username);
       preparedStmt.executeUpdate();
    }
+   public static void registerusername(customer cs)throws SQLException{
+       Connection con=connect();
+         PreparedStatement statement=con.prepareStatement("insert into customer (name,username,password,email,age)"
+        + " values (?, ?, ?, ?)");
+         statement.setString(1, cs.getName());
+         statement.setString(2, cs.getUsernmae());
+         statement.setString(3, cs.getPassword());
+         statement.setString(4, cs.getEmail());
+         statement.setInt(5, cs.getAge());
+       statement.execute();
+   }
    public static void PushPlane(AirPlane p1) throws SQLException{
        Connection con=connect();
        PreparedStatement statement=con.prepareStatement("insert into airplane (id,dest,date,seatsno)"

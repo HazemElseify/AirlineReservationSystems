@@ -314,7 +314,12 @@ public class New_Ticket extends javax.swing.JFrame {
            plan_id =  (String) model.getValueAt(i, 0);
            plan_date =  (String) model.getValueAt(i, 1);
            this.setVisible(false);
-           customerreserve a=new customerreserve(plan_id,plan_date);
+           customerreserve a;
+            try {
+                a = new customerreserve(plan_id,plan_date);
+            } catch (SQLException ex) {
+                Logger.getLogger(New_Ticket.class.getName()).log(Level.SEVERE, null, ex);
+            }
            a.show();                 
         }
         else {
