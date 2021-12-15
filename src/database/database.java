@@ -6,6 +6,7 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 import logic.AirPlane;
+import logic.customer;
 /**
  *
  * @author Hazem Elseify
@@ -64,4 +65,50 @@ public class database {
        statement.setString(1,PlaneId);
        statement.execute();
    }
+   
+   
+   
+   ///////////////////////////////////////// Abdallah /////////////////////////////////////////////////
+   
+    public static ArrayList<AirPlane> planeid_Customer(customer a) throws ClassNotFoundException, SQLException{
+        Connection connect; 
+        connect = connect();
+        ArrayList<AirPlane> planeid = new ArrayList<AirPlane>(); 
+        AirPlane s= null;
+        if(connect!=null){  
+            String Sql="SELECT * FROM seats INNER JOIN airplane ON seats.planeid = airplane.id WHERE seats.csusername='"+a.getUsernmae()+"' " ;
+            Statement stmt= connect.createStatement();
+            ResultSet rs =stmt.executeQuery(Sql);
+            while (rs.next()) {
+                s=new AirPlane( rs.getString("id") , rs.getString("dest") , rs.getString("date") , rs.getInt("seatno"));
+                planeid.add(s); 
+             }
+            return planeid;
+        }
+        else return null;
+    }   
+    public static ArrayList<AirPlane> date_plane(String a) throws ClassNotFoundException, SQLException{
+        Connection connect; 
+        connect = connect();
+        ArrayList<AirPlane> planeid = new ArrayList<AirPlane>(); 
+        AirPlane s= null;
+        if(connect!=null){  
+            String Sql="SELECT * FROM airplane WHERE dest = '"+a +"' " ;
+            Statement stmt= connect.createStatement();
+            ResultSet rs =stmt.executeQuery(Sql);
+            while (rs.next()) {
+                s=new AirPlane( rs.getString("id") , rs.getString("date") );
+                planeid.add(s); 
+             }
+            return planeid;
+        }
+        else return null;
+    }  
+   
+    
+   
+   
+   
+   ////////////////////////////////////////////Abdallah/////////////////////////////////////////////////
+   
 }

@@ -12,13 +12,31 @@ public class AirPlane {
     private String PlaneIdNo;
     private String PlaneDistination;
     private String PlaneDate;
+    private String SeatNum;
     private int PlaneSeatsNumber;
+
+   
+    
     public AirPlane(String PlaneIdNo, String PlaneDistination, String PlaneDate, int PlaneSeatsNumber) {
         this.PlaneIdNo = PlaneIdNo;
         this.PlaneDistination = PlaneDistination;
         this.PlaneDate = PlaneDate;
         this.PlaneSeatsNumber = PlaneSeatsNumber;
     }
+
+    public AirPlane(String PlaneIdNo, String PlaneDistination, String PlaneDate, String SeatNum) {
+        this.PlaneIdNo = PlaneIdNo;
+        this.PlaneDistination = PlaneDistination;
+        this.PlaneDate = PlaneDate;
+        this.SeatNum = SeatNum;
+    }
+
+    public AirPlane(String PlaneIdNo, String PlaneDate) {
+        this.PlaneIdNo = PlaneIdNo;
+        this.PlaneDate = PlaneDate;
+    }
+    
+    
     public String getPlaneId() {
         return PlaneIdNo;
     }
@@ -48,6 +66,14 @@ public class AirPlane {
 
     public void setPlaneSeatsNumber(int PlaneSeatsNumber) {
         this.PlaneSeatsNumber = PlaneSeatsNumber;
+    }
+    
+     public void setSeatNum(String SeatNum) {
+        this.SeatNum = SeatNum;
+    }
+
+    public String getSeatNum() {
+        return SeatNum;
     }
     
     

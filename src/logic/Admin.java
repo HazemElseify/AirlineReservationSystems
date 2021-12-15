@@ -51,6 +51,7 @@ public class Admin {
             }
         }
     }
+    
     public boolean CheckExist(String PlaneId) throws SQLException{
         return database.GetPlaneId(PlaneId);
     }

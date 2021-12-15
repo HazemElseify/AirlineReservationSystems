@@ -1,11 +1,17 @@
 package airlinereservationsystems;
+import gui.Admin.AdminHome;
 import java.sql.SQLException;
 import logic.Admin;
 import logic.AirPlane;
+import logic.customer;
+import database.database;
+import gui.Customer.Booking;
+import gui.Customer.Main_Customer;
+import java.util.ArrayList;
+
 public class AirlineReservationSystems {
     public static void main(String[] args) throws SQLException {
-        /*Admin A1=new Admin();
-        AirPlane p1=new AirPlane("141", "cairo", "15/11/2022", 124);
-        A1.AddPlane(p1);*/
-    }
+        /*AdminHome a=new AdminHome();
+        a.setVisible(true);*/  
+}
 }
