@@ -33,7 +33,7 @@ public class database {
            return arrayList;
       }
    public static void UpdateUserSeats(String username,String seatsnumber ) throws SQLException{
-       Connection conn=connect();
+      Connection conn=connect();
       String query = "update seats set csusername=? where seatno=?";
       PreparedStatement preparedStmt = conn.prepareStatement(query);
       preparedStmt.setString(1, username);
@@ -151,13 +151,27 @@ public class database {
    
    
    ////////////////////////////////////////////Abdallah/////////////////////////////////////////////////
-    
-    public static void updateAll(String Username,ArrayList<String>Seats)throws SQLException{
+   public static boolean check(String SeatNo) throws SQLException{
+           Connection con =connect();
+           PreparedStatement statement=con.prepareStatement("SELECT * FROM seats WHERE seatno = ?");
+           statement.setString(1, SeatNo);
+           ResultSet resultSet=statement.executeQuery();
+           String string="1";
+           if(resultSet.next()){
+           string = resultSet.getString("csusername");
+           }
+           return string.equals("0");
+   }
+    public static synchronized boolean updateAll(String Username,ArrayList<String>Seats)throws SQLException{
         for(int i=0;i<Seats.size();++i){
+            if(!check(Seats.get(i))){
+                return false;
+            }
+        }
+        for(int i=0;i<Seats.size();++i){
+            
             UpdateUserSeats(Username,Seats.get(i));
         }
-        
-    }
-   
-   
+        return true;
+    }   
 }

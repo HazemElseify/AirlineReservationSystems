@@ -9,10 +9,15 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import logic.AirPlane;
 import database.database;
+import static gui.Customer.New_Ticket.c;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logic.customer;
+import sockets.clients;
 
 /**
  *
@@ -25,17 +30,35 @@ public class Booking extends javax.swing.JFrame {
      */
      DefaultTableModel model =new DefaultTableModel();
     DefaultTableModel model2 =new DefaultTableModel();
-    public Booking(String username) throws ClassNotFoundException, SQLException {
+    static clients c=new clients();
+    public Booking(String username,clients c) throws ClassNotFoundException, SQLException, IOException {
         initComponents();
         this.setLocationRelativeTo(null);
         Customer_username=username;
-        
+        this.c=c;
+         this.c.scanner=new Scanner(this.c.clientSocket.getInputStream());
+        this.c.writer=new PrintWriter(this.c.clientSocket.getOutputStream(),true);
         model = (DefaultTableModel) table1.getModel();
         String cc ;
         customer ID=new customer();
         ID.setUsernmae(Customer_username);
-        ArrayList<AirPlane> planedata = new ArrayList<AirPlane>(); 
-        planedata= database.planeid_Customer(ID);
+           try {
+                c.message("6");
+                c.message(Customer_username);
+            } catch (IOException ex) {
+                Logger.getLogger(New_Ticket.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ArrayList<AirPlane> planedata = new ArrayList<AirPlane>(); 
+            int size=Integer.parseInt(c.scanner.nextLine());
+            while (size!=0) {     
+                String id=c.scanner.nextLine();   
+                String dist=c.scanner.nextLine();
+                String date=c.scanner.nextLine();
+                String seatnum=c.scanner.nextLine();
+                AirPlane a=new AirPlane(id,dist,date,seatnum);
+                planedata.add(a);
+                size--;
+            }
         for(int z=0 ; z < planedata.size() ; z++){
             model.insertRow(model.getRowCount(), new Object[]{
                      planedata.get(z).getPlaneId(), planedata.get(z).getPlaneDistination(),  planedata.get(z).getPlaneDate(), planedata.get(z).getSeatNum()
@@ -62,7 +85,6 @@ public class Booking extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -178,7 +200,7 @@ public class Booking extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         this.setVisible(false);
-        Main_Customer a=new Main_Customer(Customer_username);
+        Main_Customer a=new Main_Customer(Customer_username,c);
         a.show();  
     }//GEN-LAST:event_jLabel5MouseClicked
 
@@ -213,10 +235,12 @@ public class Booking extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new Booking(Customer_username).setVisible(true);
+                    new Booking(Customer_username,c).setVisible(true);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
+                    Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
                     Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

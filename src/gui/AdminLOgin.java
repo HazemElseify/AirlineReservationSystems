@@ -5,11 +5,13 @@
 package gui;
 
 import gui.Admin.AdminHome;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import logic.Admin;
+import sockets.clients;
 
 /**
  *
@@ -17,10 +19,9 @@ import logic.Admin;
  */
 public class AdminLOgin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Home
-     */
+   clients c=new clients();
     public AdminLOgin() {
+        
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -228,9 +229,14 @@ public class AdminLOgin extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Admin a=new Admin(jTextField1.getText(),new String(jPasswordField1.getPassword()));
         try {
-            if(a.login(a)){
+            String ret="";
+            c.startConnection("localhost",3010);
+            c.message("2");
+            c.message(jTextField1.getText());
+            c.message(new String(jPasswordField1.getPassword()));
+            ret=c.scanner.nextLine();
+            if(ret.equals("1")){
                 JOptionPane.showMessageDialog(null,"Login successfully","Done",JOptionPane.PLAIN_MESSAGE);
                 AdminHome b=new AdminHome();
                 this.setVisible(false);
@@ -241,7 +247,7 @@ public class AdminLOgin extends javax.swing.JFrame {
                 jTextField1.setText("");
                 jPasswordField1.setText("");
             }
-        } catch (SQLException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(AdminLOgin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

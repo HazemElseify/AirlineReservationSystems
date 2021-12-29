@@ -52,7 +52,6 @@ public class CustomerLogin extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -156,7 +155,7 @@ public class CustomerLogin extends javax.swing.JFrame {
                         .addComponent(Title2)
                         .addGap(33, 33, 33)
                         .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -217,7 +216,9 @@ public class CustomerLogin extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -236,21 +237,21 @@ public class CustomerLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int ret=0;
+        String ret="";
         try {
             c.startConnection("localhost",3010);
             
-            c.message(1);
+            c.message("1");
             c.message(jTextField1.getText());
             c.message(new String(jPasswordField1.getPassword()));
-            ret=c.scanner.nextInt();
+             ret=c.scanner.nextLine();
             
         } catch (IOException ex) {
             Logger.getLogger(CustomerLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-            if(ret==1){
+            if(ret.equals("1")){
                 JOptionPane.showMessageDialog(null,"Login successfully","Done",JOptionPane.PLAIN_MESSAGE);
-                Main_Customer b=new Main_Customer(jTextField1.getText());
+                Main_Customer b=new Main_Customer(jTextField1.getText(),c);
                 this.setVisible(false);
                 b.setVisible(true);
             }

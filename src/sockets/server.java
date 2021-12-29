@@ -4,43 +4,87 @@
  */
 package sockets;
 
+import database.database;
+import static gui.Customer.customerreserve.userName;
 import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import logic.Admin;
+import logic.AirPlane;
 import logic.customer;
-   public class server {
+
+public class server {
+
     public ServerSocket serverSocket;
     public Socket clientSocket;
     public Scanner scanner;
     public PrintWriter writer;
 
-    public void start(int port) throws IOException, SQLException {
-        System.out.println("1");
+    public void start(int port) throws IOException, SQLException, ClassNotFoundException {
         serverSocket = new ServerSocket(port);
-          System.out.println("1");
         clientSocket = serverSocket.accept();
-          System.out.println("1");
+        while (true) {
         scanner = new Scanner(clientSocket.getInputStream());
-          System.out.println("1");
-        writer = new PrintWriter(clientSocket.getOutputStream(),true);
-        System.out.println("1");
-
-        int choose=scanner.nextInt();
-        System.out.println(choose);
-        switch (choose) {
-            case 1:
-                String username=scanner.nextLine();
-                System.out.println(username);
-                String password=scanner.nextLine();
-                System.out.println(password);
-                customer a=new customer(username,password);
-                boolean ret=a.login(a);
-                int r=ret?1:0;
-                System.out.println(r);
-                writer.print(r);
-                break;
-
+        writer = new PrintWriter(clientSocket.getOutputStream(), true);
+            String choose = scanner.nextLine();
+            int ch = Integer.parseInt(choose);
+            if (ch == 1) {
+                String username = scanner.nextLine(), password = scanner.nextLine();
+                customer a = new customer(username, password);
+                boolean ret = a.login(a);
+                int r = ret ? 1 : 0;
+                writer.println(String.valueOf(r));
+            } else if (ch == 2) {
+                String username = scanner.nextLine(), password = scanner.nextLine();
+                Admin a = new Admin(username, password);
+                boolean ret = a.login(a);
+                int r = ret ? 1 : 0;
+                writer.println(String.valueOf(r));
+            } else if (ch == 3) {
+                ArrayList<AirPlane> arrayList;
+                String ok1 = scanner.nextLine();
+                arrayList = database.date_plane(ok1);
+                writer.println(String.valueOf(arrayList.size()));
+                for (int i = 0; i < arrayList.size(); ++i) {
+                    writer.println(arrayList.get(i).getPlaneId());
+                    writer.println(arrayList.get(i).getPlaneDate());
+                }
+            } else if (ch == 4) {
+                ArrayList<String> arrayList;
+                arrayList = database.getSeatslist(scanner.nextLine());
+                writer.println(String.valueOf(arrayList.size()));
+                for (int i = 0; i < arrayList.size(); ++i) {
+                    writer.println(arrayList.get(i));
+                }
+            } else if (ch == 5) {
+                String username = scanner.nextLine();
+                int size = Integer.parseInt(scanner.nextLine());
+                ArrayList<String> arrayList = new ArrayList<>();
+                for (int i = 0; i < size; ++i) {
+                    arrayList.add(scanner.nextLine());
+                }
+                
+               if(database.updateAll(username, arrayList)){
+                   writer.println("1");
+               }
+               else {
+                   writer.println("0");
+               }
+            } else if (ch == 6) {
+                customer ID = new customer();
+                ID.setUsernmae(scanner.nextLine());
+                ArrayList<AirPlane> planedata = new ArrayList<AirPlane>();
+                planedata = database.planeid_Customer(ID);
+                writer.println(String.valueOf(planedata.size()));
+                for(int i=0;i<planedata.size();++i){
+                    writer.println(planedata.get(i).getPlaneId());
+                    writer.println(planedata.get(i).getPlaneDistination());
+                    writer.println(planedata.get(i).getPlaneDate());
+                    writer.println(planedata.get(i).getSeatNum());
+                }
+            }
         }
     }
 
@@ -50,21 +94,13 @@ import logic.customer;
         clientSocket.close();
         serverSocket.close();
     }
-       public static void main(String[] args) throws IOException, SQLException {
-             server s=new server();
-             s.start(3010);
-                         
-           
-            
-      
-       }
+
+    public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
+        server s = new server();
+        s.start(3010);
+
+    }
 }
-
-
-
-
-
-
 
 /* 
 // TODO add your handling code here:
@@ -86,4 +122,4 @@ import logic.customer;
             t.start();
         } catch (Exception e) {
         }
-*/
+ */

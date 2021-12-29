@@ -13,9 +13,13 @@ import logic.AirPlane;
 import database.database;
 import static gui.Customer.Booking.Customer_username;
 import gui.Customer.customerreserve;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sockets.clients;
 
 /**
  *
@@ -26,12 +30,16 @@ public class New_Ticket extends javax.swing.JFrame {
     /**
      * Creates new form New_Ticket
      */
+    static clients c=new clients();
      DefaultTableModel model =new DefaultTableModel();
      static String Csuser_name;
-    public New_Ticket(String username) {
+    public New_Ticket(String username,clients c) throws IOException {
         initComponents();
         this.setLocationRelativeTo(null);
         Csuser_name=username;
+        this.c=c;
+        this.c.scanner=new Scanner(this.c.clientSocket.getInputStream());
+        this.c.writer=new PrintWriter(this.c.clientSocket.getOutputStream(),true);
     }
 
     /**
@@ -60,7 +68,6 @@ public class New_Ticket extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 4, 3, 3, new java.awt.Color(102, 102, 102)));
@@ -206,7 +213,7 @@ public class New_Ticket extends javax.swing.JFrame {
                 .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FreqLabel12)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane4.setBackground(new java.awt.Color(0, 0, 0));
@@ -255,8 +262,8 @@ public class New_Ticket extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -264,7 +271,7 @@ public class New_Ticket extends javax.swing.JFrame {
 
     private void FreqLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FreqLabel12MouseClicked
         this.setVisible(false);
-        Main_Customer a=new Main_Customer(Customer_username);
+        Main_Customer a=new Main_Customer(Customer_username,c);
         a.show();
     }//GEN-LAST:event_FreqLabel12MouseClicked
 
@@ -285,14 +292,21 @@ public class New_Ticket extends javax.swing.JFrame {
         String ok = OK.getText();
         if(ok.length()!=0){
             String ok1 = ok.toLowerCase(); 
+            try {
+                c.message("3");
+                c.message(ok1);
+            } catch (IOException ex) {
+                Logger.getLogger(New_Ticket.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ArrayList<AirPlane> planedata = new ArrayList<AirPlane>(); 
-             try {
-                 planedata = database.date_plane(ok1);
-             } catch (ClassNotFoundException ex) {
-                 Logger.getLogger(New_Ticket.class.getName()).log(Level.SEVERE, null, ex);
-             } catch (SQLException ex) {
-                 Logger.getLogger(New_Ticket.class.getName()).log(Level.SEVERE, null, ex);
-             }
+            int size=Integer.parseInt(c.scanner.nextLine());
+            while (size!=0) {     
+                String id=c.scanner.nextLine();
+                String date=c.scanner.nextLine();
+                AirPlane a=new AirPlane(id, date);
+                planedata.add(a);
+                size--;
+            }
             for(int z=0;z<planedata.size();z++){
                 model.insertRow(model.getRowCount(), new Object[]{
                     planedata.get(z).getPlaneId() ,planedata.get(z).getPlaneDate() 
@@ -315,8 +329,10 @@ public class New_Ticket extends javax.swing.JFrame {
            this.setVisible(false);
            customerreserve a = null;
             try {
-            a = new customerreserve(plan_id,Csuser_name);
+            a = new customerreserve(plan_id,Csuser_name,c);
             } catch (SQLException ex) {
+                Logger.getLogger(New_Ticket.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(New_Ticket.class.getName()).log(Level.SEVERE, null, ex);
             }
            a.show();                 
@@ -360,7 +376,11 @@ public class New_Ticket extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new New_Ticket(Csuser_name).setVisible(true);
+                try {
+                    new New_Ticket(Csuser_name,c).setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(New_Ticket.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

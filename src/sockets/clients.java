@@ -19,23 +19,8 @@ public class clients {
         scanner = new Scanner(clientSocket.getInputStream());
         writer = new PrintWriter(clientSocket.getOutputStream(),true);
     }
-    public void message(int msg) throws IOException{
-       Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    writer.println(msg);
-                }
-            });
-            t.start();
-    }
      public void message(String msg) throws IOException{
-       Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
                     writer.println(msg);
-                }
-            });
-            t.start();
     }
     public void stopConnection() throws IOException {
         scanner.close();

@@ -5,12 +5,16 @@
 package gui.Customer;
 
 import database.database;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sockets.clients;
 
 /**
  *
@@ -19,18 +23,30 @@ import javax.swing.table.DefaultTableModel;
 public class customerreserve extends javax.swing.JFrame {
 
   public static String planeid,userName;
-    public customerreserve(String planeid,String userName) throws SQLException {
+  static clients c=new clients();
+    public customerreserve(String planeid,String userName,clients c) throws SQLException, IOException {
         this.planeid=planeid;
         this.userName=userName;
+        this.c=c;
+        this.c.scanner=new Scanner(this.c.clientSocket.getInputStream());
+        this.c.writer=new PrintWriter(this.c.clientSocket.getOutputStream(),true);
+        System.out.println(userName);
         initComponents();
         this.setLocationRelativeTo(null);
-        ArrayList<String> planeseats;
-        planeseats=database.getSeatslist(planeid);
+        ArrayList<String> planeseats = new ArrayList<>();
+        c.message("4");
+        c.message(planeid);
+        int size=Integer.parseInt(c.scanner.nextLine());
+        while(size>0){
+            planeseats.add(c.scanner.nextLine());
+            size--;
+        }
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for(int i=0;i<planeseats.size();i++){
            model.insertRow(i, new Object[]{planeseats.get(i)});
         }
-        
+        this.c.scanner=new Scanner(this.c.clientSocket.getInputStream());
+        this.c.writer=new PrintWriter(this.c.clientSocket.getOutputStream(),true);
     }
     
     /**
@@ -52,16 +68,9 @@ public class customerreserve extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,34 +153,6 @@ public class customerreserve extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Form", 0, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("TEST RACE CONDITION ");
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Form", 0, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("USER B");
-
-        jLabel8.setFont(new java.awt.Font("Form", 0, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("USER A");
-
-        jButton2.setBackground(new java.awt.Color(51, 51, 51));
-        jButton2.setFont(new java.awt.Font("Form", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("CONFIRM");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jLabel9.setFont(new java.awt.Font("Form", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -192,39 +173,21 @@ public class customerreserve extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 16, Short.MAX_VALUE))
+                        .addGap(0, 24, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel2))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(136, 136, 136)
-                                .addComponent(jLabel6))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addGap(246, 246, 246)
-                                        .addComponent(jButton2))
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel7)
-                                            .addGap(60, 60, 60)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel9))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(267, 267, 267)
                                 .addComponent(jButton1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(jLabel8)
-                    .addContainerGap(887, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,35 +208,22 @@ public class customerreserve extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(117, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(588, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(215, 215, 215)))
+                        .addGap(239, 239, 239)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -284,26 +234,48 @@ public class customerreserve extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println(userName);
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-  int[] selectedidx;
-  selectedidx=jTable1.getSelectedRows();
-  ArrayList resultOfselection=new ArrayList();
-  for(int i=0;i<selectedidx.length;i++){
-   resultOfselection.add(String.valueOf(model.getValueAt(selectedidx[i],0)));
-  }
       try {
-          database.updateAll(userName, resultOfselection);
-      } catch (SQLException ex) {
-          Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      try {
-          Booking bk=new Booking(userName);
-          bk.show();
-          this.setVisible(false);
-      } catch (ClassNotFoundException ex) {
-          Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
-      } catch (SQLException ex) {
+          c.message("5");
+          c.message(userName);
+          DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+          int[] selectedidx;
+          selectedidx=jTable1.getSelectedRows();
+          ArrayList resultOfselection=new ArrayList();
+          for(int i=0;i<selectedidx.length;i++){
+              resultOfselection.add(String.valueOf(model.getValueAt(selectedidx[i],0)));
+          }
+          try {
+              c.message(String.valueOf(resultOfselection.size()));
+              for(int i=0;i<resultOfselection.size();++i){
+                  c.message((String)resultOfselection.get(i));
+              }
+              
+          } catch (IOException ex) {
+              Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          try {
+             String bool =c.scanner.nextLine();
+             if(bool.equals("1")){
+                 
+              Booking bk=new Booking(userName,c);
+              bk.show();
+              this.setVisible(false);
+             }else{
+                JOptionPane.showMessageDialog(null,"one of your seats has been booked ,try again","Error",JOptionPane.PLAIN_MESSAGE);
+                customerreserve cm=new customerreserve(planeid, userName, c);
+                cm.setVisible(false);
+                cm.show();
+             }
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (SQLException ex) {
+              Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (IOException ex) {
+              Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          
+          
+      } catch (IOException ex) {
           Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
       }
   
@@ -319,17 +291,14 @@ public class customerreserve extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         this.setVisible(false);
-       New_Ticket a=new New_Ticket(userName);
+       New_Ticket a =null;
+      try {
+          a = new New_Ticket(userName,c);
+      } catch (IOException ex) {
+          Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
+      }
         a.setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,7 +331,9 @@ public class customerreserve extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new customerreserve(planeid,userName).setVisible(true);
+                    new customerreserve(planeid,userName,c).setVisible(true);
+                }catch (IOException ex) {
+                    Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
                     Logger.getLogger(customerreserve.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -372,21 +343,15 @@ public class customerreserve extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
