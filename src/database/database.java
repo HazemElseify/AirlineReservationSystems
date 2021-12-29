@@ -151,7 +151,13 @@ public class database {
    
    
    ////////////////////////////////////////////Abdallah/////////////////////////////////////////////////
-
+    
+    public static void updateAll(String Username,ArrayList<String>Seats)throws SQLException{
+        for(int i=0;i<Seats.size();++i){
+            UpdateUserSeats(Username,Seats.get(i));
+        }
+        
+    }
    
    
 }

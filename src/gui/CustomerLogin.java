@@ -6,22 +6,23 @@ package gui;
 
 import gui.Admin.AdminHome;
 import gui.Customer.Main_Customer;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import logic.Admin;
 import logic.customer;
+import sockets.clients;
+import sockets.server;
 
 /**
  *
  * @author OmarHA
  */
 public class CustomerLogin extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Home
-     */
+    server s=new server();
+    clients c=new clients();
     public CustomerLogin() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -52,6 +53,11 @@ public class CustomerLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/image/airplane.jpg"))); // NOI18N
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 0, new java.awt.Color(102, 102, 102)));
@@ -210,8 +216,8 @@ public class CustomerLogin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1)
         );
 
         pack();
@@ -230,11 +236,21 @@ public class CustomerLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       customer a=new customer(jTextField1.getText(),new String(jPasswordField1.getPassword()));
+        int ret=0;
         try {
-            if(a.login(a)){
+            c.startConnection("localhost",3010);
+            
+            c.message(1);
+            c.message(jTextField1.getText());
+            c.message(new String(jPasswordField1.getPassword()));
+            ret=c.scanner.nextInt();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(CustomerLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            if(ret==1){
                 JOptionPane.showMessageDialog(null,"Login successfully","Done",JOptionPane.PLAIN_MESSAGE);
-                Main_Customer b=new Main_Customer(a.getUsernmae());
+                Main_Customer b=new Main_Customer(jTextField1.getText());
                 this.setVisible(false);
                 b.setVisible(true);
             }
@@ -243,9 +259,6 @@ public class CustomerLogin extends javax.swing.JFrame {
                 jTextField1.setText("");
                 jPasswordField1.setText("");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
@@ -253,6 +266,16 @@ public class CustomerLogin extends javax.swing.JFrame {
         Home a=new Home();
         a.setVisible(true);
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            s.start(3010);
+        } catch (IOException ex) {
+            Logger.getLogger(CustomerLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
