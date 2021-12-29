@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class clients {
     public Socket clientSocket;
     public Scanner scanner;
-    public Writer writer;
+    public PrintWriter writer;
 
     public void startConnection(String ip, int port) throws IOException {
         clientSocket = new Socket(ip, port);
@@ -20,14 +20,10 @@ public class clients {
         writer = new PrintWriter(clientSocket.getOutputStream(),true);
     }
     public void message(int msg) throws IOException{
-        Thread t = new Thread(new Runnable() {
+       Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        writer.write(msg);
-                    } catch (IOException ex) {
-                        Logger.getLogger(clients.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    writer.println(msg);
                 }
             });
             t.start();
@@ -36,11 +32,7 @@ public class clients {
        Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        writer.write(msg);
-                    } catch (IOException ex) {
-                        Logger.getLogger(clients.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    writer.println(msg);
                 }
             });
             t.start();
@@ -49,5 +41,9 @@ public class clients {
         scanner.close();
         writer.close();
         clientSocket.close();
+    }
+    public static void main(String[] args) throws IOException {
+           clients c=new clients();
+           c.startConnection("localhost", 3010);
     }
 }

@@ -13,23 +13,32 @@ import logic.customer;
     public ServerSocket serverSocket;
     public Socket clientSocket;
     public Scanner scanner;
-    public Writer writer;
+    public PrintWriter writer;
 
     public void start(int port) throws IOException, SQLException {
+        System.out.println("1");
         serverSocket = new ServerSocket(port);
+          System.out.println("1");
         clientSocket = serverSocket.accept();
+          System.out.println("1");
         scanner = new Scanner(clientSocket.getInputStream());
+          System.out.println("1");
         writer = new PrintWriter(clientSocket.getOutputStream(),true);
-        
+        System.out.println("1");
+
         int choose=scanner.nextInt();
         System.out.println(choose);
         switch (choose) {
             case 1:
-                String username=scanner.nextLine(),password=scanner.nextLine();
+                String username=scanner.nextLine();
+                System.out.println(username);
+                String password=scanner.nextLine();
+                System.out.println(password);
                 customer a=new customer(username,password);
                 boolean ret=a.login(a);
                 int r=ret?1:0;
-                writer.write(r);
+                System.out.println(r);
+                writer.print(r);
                 break;
 
         }
@@ -42,11 +51,12 @@ import logic.customer;
         serverSocket.close();
     }
        public static void main(String[] args) throws IOException, SQLException {
-           server s=new server();
-           s.start(3010);
-           clients c=new clients();
-           c.startConnection("localhost", 3010);
-           c.message(1);
+             server s=new server();
+             s.start(3010);
+                         
+           
+            
+      
        }
 }
 
